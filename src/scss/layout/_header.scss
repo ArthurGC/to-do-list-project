@@ -1,0 +1,15 @@
+@use '../utilities' as *;
+
+header {
+  background: $clr-background-blue;
+
+  nav {
+    padding: calc(1rem + 0.8vw) calc(1.5rem + 4.5vw);
+
+    a {
+      @include muli-text(24px, 500, 32px, 0.5);
+
+      color: $clr-primary-white;
+    }
+  }
+}
