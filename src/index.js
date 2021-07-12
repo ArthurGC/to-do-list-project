@@ -26,6 +26,7 @@ const createItemTask = (task) => {
       `<li>
     <input type="checkbox" name="task${task.index}" value="task${task.index}">
     <label class="text-task">${task.description}</label><br>
+    <i class="fas fa-ellipsis-v icon-item"></i>
     </li>
     `);
   } else {
@@ -34,6 +35,7 @@ const createItemTask = (task) => {
       `<li>
     <input type="checkbox" name="task${task.index}" value="task${task.index}" checked>
     <label class="text-task">${task.description}</label><br>
+    <i class="fas fa-ellipsis-v icon-item"></i>
     </li>
     `,
     );

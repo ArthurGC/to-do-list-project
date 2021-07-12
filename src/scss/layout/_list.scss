@@ -22,12 +22,23 @@
     border: none;
     box-shadow: 0 5px 8px 0 rgb(190, 186, 190);
 
-    h2 {
-      @include muli-text(15px, 600, 32px);
-
-      color: $clr-primary-text;
+    &-title {
       padding: calc(0.5rem + 0.3vw) calc(0.8rem + 0.5vw);
       border-bottom: 1px solid $clr-border;
+
+      @include flex(row,center, space-between);
+
+      h2 {
+        @include muli-text(15px, 600, 32px);
+
+        color: $clr-primary-text;
+      }
+
+      i {
+        font-size: calc(11px + 0.3vw);
+        cursor: pointer;
+        color: #aaa;
+      }
     }
 
     .input-task {
@@ -47,10 +58,25 @@
     ul {
       li {
         @include muli-text(15px, 500, 24px);
+        @include flex(row, center, space-between);
 
         color: $clr-primary-text;
         padding: calc(0.5rem + 0.3vw) calc(0.8rem + 0.5vw);
         border-bottom: 1px solid $clr-border;
+
+        input {
+          flex-basis: 10%;
+        }
+
+        label {
+          flex-basis: 87%;
+        }
+
+        .icon-item {
+          cursor: pointer;
+          flex-basis: 3%;
+          color: #aaa;
+        }
       }
     }
 
