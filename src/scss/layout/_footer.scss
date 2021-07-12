@@ -1,0 +1,16 @@
+@use '../utilities' as *;
+
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: calc(1rem + 0.8vw) calc(1.5rem + 4.5vw);
+    @include flex(row, center, space-between);
+    background: $clr-background-light;
+
+    &__p {
+        @include muli-text(12px, 500, 24px);
+        color: $clr-primary-text;
+    }
+}
