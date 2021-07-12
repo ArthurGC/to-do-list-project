@@ -10,7 +10,7 @@ In this project, I set up my To-Do List web page. My goal was add the functional
 
 ## :hammer: Built With
 
-- HTML and JS
+- HTML, CSS, JS and Webpack.
 
 To get a local copy up and running follow these simple steps:
 
