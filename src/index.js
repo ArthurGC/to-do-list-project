@@ -1,8 +1,9 @@
 import "./styles.scss";
 
 import { listContainer, createItemTask } from "./modules/renderTasks.js";
-import { refrestTargetDragDrop } from "./modules/dragDrop.js";
+import { dragStart, dragEnd, dragOver, dragDrop } from "./modules/dragDrop.js";
 import {checkBoxStatus} from './modules/checkStatus.js';
+import {Task} from './modules/task.js';
 
 let toDoTasks = [
   {
@@ -45,6 +46,28 @@ const getTaskData = () => {
 
 const setData = () => {
   localStorage.setItem('TaskData', JSON.stringify(toDoTasks));
+}
+
+const refrestTargetDragDrop = () => {
+  let tasks = document.querySelectorAll('.container-list .item');
+
+  tasks.forEach(task => {
+    task.addEventListener('dragstart', dragStart);
+    task.addEventListener('dragend', dragEnd);
+    task.addEventListener('dragover', dragOver);
+    task.addEventListener('drop', (e) => {
+      dragDrop(e);
+      let items = [...listContainer.children];
+
+      toDoTasks = [];
+
+      items.forEach((item,index) => {
+        let newTask = new Task(item.children[1].textContent, item.children[0].checked, index)
+        toDoTasks.push(newTask);
+        setData();
+      })
+    });
+  })
 }
 
 document.addEventListener("DOMContentLoaded", () => {
