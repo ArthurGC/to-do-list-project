@@ -2,7 +2,7 @@
 
 # To Do list Project
 
-In this project, I set up my To-Do List web page. My goal was add the functionality to add and display each todo task inside my task list. 
+In this project, I set up my To-Do List web page. My goal was add functionalities like create, display, drag/drop, refresh index and completed status task in my task list. 
 
 ## :red_circle: Live Demo
 
