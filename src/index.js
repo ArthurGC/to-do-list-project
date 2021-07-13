@@ -1,42 +1,44 @@
-import "./styles.scss";
+import './styles.scss';
 
-import { listContainer, createItemTask } from "./modules/renderTasks.js";
-import { dragStart, dragEnd, dragOver, dragDrop } from "./modules/dragDrop.js";
-import {checkBoxStatus} from './modules/checkStatus.js';
-import {Task} from './modules/task.js';
+import { listContainer, createItemTask } from './modules/renderTasks.js';
+import {
+  dragStart, dragEnd, dragOver, dragDrop,
+} from './modules/dragDrop.js';
+import { checkBoxStatus } from './modules/checkStatus.js';
+import { Task } from './modules/task.js';
 
 let toDoTasks = [
   {
-    description: "Wash the dishes",
+    description: 'Wash the dishes',
     completed: false,
     index: 0,
   },
   {
-    description: "Brush your teeth",
+    description: 'Brush your teeth',
     completed: true,
     index: 1,
   },
   {
-    description: "Wake up early",
+    description: 'Wake up early',
     completed: false,
     index: 2,
   },
 ];
 
 const displayTasks = () => {
-  listContainer.innerHTML = "";
+  listContainer.innerHTML = '';
   toDoTasks.forEach((task) => createItemTask(task));
 };
 
-const refrestCompletedTask = (bool,element) => {
+const refrestCompletedTask = (bool, element) => {
   if (bool) {
-      toDoTasks[parseInt(element.dataset.id)].completed = true;
-      element.setAttribute('checked', 'true');
+    toDoTasks[parseInt(element.dataset.id, 10)].completed = true;
+    element.setAttribute('checked', 'true');
   } else {
-    toDoTasks[parseInt(element.dataset.id)].completed = false;
-      element.removeAttribute('checked');
+    toDoTasks[parseInt(element.dataset.id, 10)].completed = false;
+    element.removeAttribute('checked');
   }
-}
+};
 
 const getTaskData = () => {
   if (localStorage.getItem('TaskData') != null) {
@@ -46,38 +48,38 @@ const getTaskData = () => {
 
 const setData = () => {
   localStorage.setItem('TaskData', JSON.stringify(toDoTasks));
-}
+};
 
 const refrestTargetDragDrop = () => {
-  let tasks = document.querySelectorAll('.container-list .item');
+  const tasks = document.querySelectorAll('.container-list .item');
 
-  tasks.forEach(task => {
+  tasks.forEach((task) => {
     task.addEventListener('dragstart', dragStart);
     task.addEventListener('dragend', dragEnd);
     task.addEventListener('dragover', dragOver);
     task.addEventListener('drop', (e) => {
       dragDrop(e);
-      let items = [...listContainer.children];
+      const items = [...listContainer.children];
 
       toDoTasks = [];
 
-      items.forEach((item,index) => {
-        let newTask = new Task(item.children[1].textContent, item.children[0].checked, index)
+      items.forEach((item, index) => {
+        const newTask = new Task(item.children[1].textContent, item.children[0].checked, index);
         toDoTasks.push(newTask);
         setData();
-      })
+      });
     });
-  })
-}
+  });
+};
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   getTaskData();
   displayTasks();
   refrestTargetDragDrop();
 });
 
-listContainer.addEventListener("click", (e) => {
-  if (e.target.classList.contains("checkbox")) {
+listContainer.addEventListener('click', (e) => {
+  if (e.target.classList.contains('checkbox')) {
     checkBoxStatus(e.target);
     refrestCompletedTask(e.target.checked, e.target);
     setData();
