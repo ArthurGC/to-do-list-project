@@ -24,7 +24,7 @@ const createItemTask = (task) => {
   if (task.completed === false) {
     listContainer.insertAdjacentHTML('beforeend',
       `<li>
-    <input type="checkbox" name="task${task.index}" value="task${task.index}">
+    <input type="checkbox" data-id="${task.index}">
     <label class="text-task">${task.description}</label><br>
     <i class="fas fa-ellipsis-v icon-item"></i>
     </li>
@@ -33,7 +33,7 @@ const createItemTask = (task) => {
     listContainer.insertAdjacentHTML(
       'beforeend',
       `<li>
-    <input type="checkbox" name="task${task.index}" value="task${task.index}" checked>
+    <input type="checkbox" data-id="${task.index} checked>
     <label class="text-task">${task.description}</label><br>
     <i class="fas fa-ellipsis-v icon-item"></i>
     </li>
