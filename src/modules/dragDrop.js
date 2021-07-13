@@ -16,14 +16,6 @@ const dragOver = (e) => {
     e.preventDefault();
 }
 
-const dragEnter = (e) => {
-    // 
-}
-
-const dragLeave = (e) => {
-    // 
-}
-
 const dragDrop = (e) => {
     e.stopPropagation();
 
@@ -40,8 +32,6 @@ export const refrestTargetDragDrop = () => {
       task.addEventListener('dragstart', dragStart);
       task.addEventListener('dragend', dragEnd);
       task.addEventListener('dragover', dragOver);
-      task.addEventListener('dragenter', dragEnter);
-      task.addEventListener('dragleave', dragLeave);
       task.addEventListener('drop', dragDrop);
     })
 }
