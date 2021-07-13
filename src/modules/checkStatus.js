@@ -5,10 +5,10 @@ export const checkBoxStatus = (element) => {
 const changeStyleTask = (bool,element) => {
     if (bool) {
         element.nextElementSibling.style.textDecoration = 'line-through';
-        element.style.color = '#e7e7e7';
+        element.nextElementSibling.style.color = '#bbb';
     } else {
         element.nextElementSibling.style.textDecoration = '';
-        element.style.color = '';
+        element.nextElementSibling.style.color = '';
     }
 }
 
