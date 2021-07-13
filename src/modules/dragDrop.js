@@ -1,6 +1,6 @@
 let dragElement;
 
-const dragStart = (e) => {
+export const dragStart = (e) => {
     e.currentTarget.style.opacity = '0.5';
 
     dragElement = e.currentTarget;
@@ -8,30 +8,29 @@ const dragStart = (e) => {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', e.currentTarget.innerHTML);
 } 
-const dragEnd = (e) => {
+export const dragEnd = (e) => {
     e.currentTarget.style.opacity = '1';
 }
 
-const dragOver = (e) => {
+export const dragOver = (e) => {
     e.preventDefault();
 }
 
-const dragDrop = (e) => {
+export const dragDrop = (e) => {
     e.stopPropagation();
 
     if (dragElement !== e.currentTarget) {
+        let previousFirstId = dragElement.dataset.id;
+        let previousSecondId = e.currentTarget.dataset.id;
+
         dragElement.innerHTML = e.currentTarget.innerHTML;
         e.currentTarget.innerHTML = e.dataTransfer.getData('text/html');
+
+        dragElement.children[0].dataset.id = previousFirstId;
+        dragElement.children[1].dataset.id = previousFirstId;
+        e.currentTarget.children[0].dataset.id = previousSecondId;
+        e.currentTarget.children[1].dataset.id = previousSecondId;
       }
 }
 
-export const refrestTargetDragDrop = () => {
-    let tasks = document.querySelectorAll('.container-list .item');
 
-    tasks.forEach(task => {
-      task.addEventListener('dragstart', dragStart);
-      task.addEventListener('dragend', dragEnd);
-      task.addEventListener('dragover', dragOver);
-      task.addEventListener('drop', dragDrop);
-    })
-}
