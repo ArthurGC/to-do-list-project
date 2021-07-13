@@ -23,7 +23,7 @@ const toDoTasks = [
 const createItemTask = (task) => {
   if (task.completed) {
     listContainer.insertAdjacentHTML('beforeend',
-    `<li>
+    `<li draggable="true" class="item">
     <input type="checkbox" data-id="${task.index}" checked>
     <label class="text-task" data-id="${task.index}">${task.description} </label><br>
     <i class="fas fa-ellipsis-v icon-item"></i>
@@ -31,7 +31,7 @@ const createItemTask = (task) => {
     `);
   } else {
     listContainer.insertAdjacentHTML('beforeend',
-    `<li>
+    `<li draggable="true" class="item">
     <input type="checkbox" data-id="${task.index}">
     <label class="text-task" data-id="${task.index}">${task.description}</label><br>
     <i class="fas fa-ellipsis-v icon-item"></i>
