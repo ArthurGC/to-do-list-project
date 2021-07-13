@@ -4,7 +4,7 @@ import { listContainer, createItemTask } from "./modules/renderTasks.js";
 import { refrestTargetDragDrop } from "./modules/dragDrop.js";
 import {checkBoxStatus} from './modules/checkStatus.js';
 
-const toDoTasks = [
+let toDoTasks = [
   {
     description: "Wash the dishes",
     completed: false,
@@ -30,8 +30,10 @@ const displayTasks = () => {
 const refrestCompletedTask = (bool,element) => {
   if (bool) {
       toDoTasks[parseInt(element.dataset.id)].completed = true;
+      element.setAttribute('checked', 'true');
   } else {
     toDoTasks[parseInt(element.dataset.id)].completed = false;
+      element.removeAttribute('checked');
   }
 }
 
