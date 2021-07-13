@@ -1,4 +1,4 @@
-const changeStyleTask = (bool, element) => {
+export const changeStyleTask = (bool, element) => {
   if (bool) {
     element.nextElementSibling.style.textDecoration = 'line-through';
     element.nextElementSibling.style.color = '#bbb';
@@ -8,6 +8,6 @@ const changeStyleTask = (bool, element) => {
   }
 };
 
-export default checkBoxStatus = (element) => {
+export const checkBoxStatus = (element) => {
   changeStyleTask(element.checked, element);
 };

@@ -70,11 +70,21 @@
         }
 
         label {
-          flex-basis: 87%;
+          flex-basis: 80%;
+          outline: none;
+          border-radius: 5px;
+          padding: 0 8px;
         }
 
         .icon-item {
           cursor: move;
+          flex-basis: 3%;
+          color: #aaa;
+        }
+
+        .remove {
+          display: none;
+          cursor: not-allowed;
           flex-basis: 3%;
           color: #aaa;
         }

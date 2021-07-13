@@ -4,8 +4,8 @@ import { listContainer, createItemTask } from './modules/renderTasks.js';
 import {
   dragStart, dragEnd, dragOver, dragDrop,
 } from './modules/dragDrop.js';
-import { checkBoxStatus } from './modules/checkStatus.js';
-import { Task } from './modules/task.js';
+import { checkBoxStatus, changeStyleTask} from './modules/checkStatus.js';
+import Task from './modules/task.js';
 
 let toDoTasks = [
   {
@@ -72,9 +72,18 @@ const refrestTargetDragDrop = () => {
   });
 };
 
+const checkBoxStatusContentLoad = () => {
+  const items = [...listContainer.children];
+
+  items.forEach(item => {
+    changeStyleTask(item.children[0].checked, item.children[0]);
+  })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   getTaskData();
   displayTasks();
+  checkBoxStatusContentLoad();
   refrestTargetDragDrop();
 });
 

@@ -1,1 +1,16 @@
 // Transitions scss file
+.container-list {
+    .item {
+        .text-task:focus {
+            background: rgb(241, 255, 110);
+        }
+
+        .text-task:focus ~.icon-item {
+            display: none;
+        }
+
+        .text-task:focus ~.remove {
+            display: block;
+        }
+    }
+}
