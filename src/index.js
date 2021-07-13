@@ -1,6 +1,7 @@
 import './styles.scss';
 
-const listContainer = document.querySelector('.container-list');
+import {listContainer, createItemTask} from './modules/renderTasks.js'
+import {refrestTargetDragDrop} from './modules/dragDrop.js'
 
 const toDoTasks = [
   {
@@ -20,31 +21,19 @@ const toDoTasks = [
   },
 ];
 
-const createItemTask = (task) => {
-  if (task.completed) {
-    listContainer.insertAdjacentHTML('beforeend',
-    `<li draggable="true" class="item">
-    <input type="checkbox" data-id="${task.index}" checked>
-    <label class="text-task" data-id="${task.index}">${task.description} </label><br>
-    <i class="fas fa-ellipsis-v icon-item"></i>
-    </li>
-    `);
-  } else {
-    listContainer.insertAdjacentHTML('beforeend',
-    `<li draggable="true" class="item">
-    <input type="checkbox" data-id="${task.index}">
-    <label class="text-task" data-id="${task.index}">${task.description}</label><br>
-    <i class="fas fa-ellipsis-v icon-item"></i>
-    </li>
-    `);
-  }
-};
-
 const displayTasks = () => {
-  listContainer.innerHTML = '';
+  listContainer.innerHTML = "";
   toDoTasks.forEach((task) => createItemTask(task));
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   displayTasks();
+  refrestTargetDragDrop();
 });
+
+// listContainer.addEventListener('click', (e) => {
+
+//   if (e.target.classList.contains('icon-item')) {
+
+//   }
+// })
