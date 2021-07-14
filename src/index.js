@@ -81,11 +81,23 @@ const checkBoxStatusContentLoad = () => {
   });
 };
 
+const refreshEditableItems = (tasks) => {
+  const editableItems = document.querySelectorAll('.container-list li .text-task');
+
+  editableItems.forEach(item => {
+    item.addEventListener('input', () => {
+      tasks[parseInt(item.dataset.id, 10)].description = item.textContent;
+      setData();
+    })
+  })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   getTaskData();
   displayTasks();
   checkBoxStatusContentLoad();
   refrestTargetDragDrop();
+  refreshEditableItems();
 });
 
 listContainer.addEventListener('click', (e) => {
@@ -101,6 +113,7 @@ listContainer.addEventListener('click', (e) => {
       setData();
       displayTasks();
       refrestTargetDragDrop();
+      refreshEditableItems();
   }
 
 });
@@ -127,5 +140,5 @@ clearCompletedTasks.addEventListener('click', () => {
   setData();
   displayTasks();
   refrestTargetDragDrop();
-
+  refreshEditableItems();
 });
