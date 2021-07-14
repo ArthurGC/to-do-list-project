@@ -5,7 +5,8 @@ import {
   dragStart, dragEnd, dragOver, dragDrop,
 } from './modules/dragDrop.js';
 import { checkBoxStatus, changeStyleTask } from './modules/checkStatus.js';
-import Task from './modules/task.js';
+import { Task, inputTask, addTask } from './modules/addtask.js';
+import { clearCompletedTasks, removeAllIcon, removeAllItems, removeCompletedItem } from './modules/remove.js';
 
 let toDoTasks = [
   {
@@ -93,4 +94,38 @@ listContainer.addEventListener('click', (e) => {
     refrestCompletedTask(e.target.checked, e.target);
     setData();
   }
+
+  if (e.target.classList.contains('remove')) {
+      e.target.parentElement.remove();
+      removeSelectedItem(toDoTasks, e.target.dataset.id);
+      setData();
+      displayTasks();
+      refrestTargetDragDrop();
+  }
+
+});
+
+removeAllIcon.addEventListener('click', () =>{
+  removeAllItems(toDoTasks, listContainer);
+  setData();
+});
+
+inputTask.addEventListener('keyup', (e) => {
+  e.preventDefault();
+  if (e.keyCode === 13) {
+    let input = document.querySelector('.input-task');
+    addTask(toDoTasks, input);
+    setData();
+    displayTasks();
+    input.value = '';
+  }
+
+})
+
+clearCompletedTasks.addEventListener('click', () => {
+  removeCompletedItem(toDoTasks);
+  setData();
+  displayTasks();
+  refrestTargetDragDrop();
+
 });
