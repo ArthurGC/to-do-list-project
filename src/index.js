@@ -6,7 +6,9 @@ import {
 } from './modules/dragDrop.js';
 import { checkBoxStatus, changeStyleTask } from './modules/checkStatus.js';
 import { Task, inputTask, addTask } from './modules/addtask.js';
-import { clearCompletedTasks, removeAllIcon, removeAllItems, removeCompletedItem } from './modules/remove.js';
+import {
+  clearCompletedTasks, removeAllIcon, removeAllItems, removeCompletedItem, removeSelectedItem
+} from './modules/remove.js';
 
 let toDoTasks = [
   {
@@ -84,13 +86,13 @@ const checkBoxStatusContentLoad = () => {
 const refreshEditableItems = (tasks) => {
   const editableItems = document.querySelectorAll('.container-list li .text-task');
 
-  editableItems.forEach(item => {
+  editableItems.forEach((item) => {
     item.addEventListener('input', () => {
       tasks[parseInt(item.dataset.id, 10)].description = item.textContent;
       setData();
-    })
-  })
-}
+    });
+  });
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   getTaskData();
@@ -108,17 +110,16 @@ listContainer.addEventListener('click', (e) => {
   }
 
   if (e.target.classList.contains('remove')) {
-      e.target.parentElement.remove();
-      removeSelectedItem(toDoTasks, e.target.dataset.id);
-      setData();
-      displayTasks();
-      refrestTargetDragDrop();
-      refreshEditableItems();
+    e.target.parentElement.remove();
+    removeSelectedItem(toDoTasks, e.target.dataset.id);
+    setData();
+    displayTasks();
+    refrestTargetDragDrop();
+    refreshEditableItems();
   }
-
 });
 
-removeAllIcon.addEventListener('click', () =>{
+removeAllIcon.addEventListener('click', () => {
   removeAllItems(toDoTasks, listContainer);
   setData();
 });
@@ -126,14 +127,13 @@ removeAllIcon.addEventListener('click', () =>{
 inputTask.addEventListener('keyup', (e) => {
   e.preventDefault();
   if (e.keyCode === 13) {
-    let input = document.querySelector('.input-task');
+    const input = document.querySelector('.input-task');
     addTask(toDoTasks, input);
     setData();
     displayTasks();
     input.value = '';
   }
-
-})
+});
 
 clearCompletedTasks.addEventListener('click', () => {
   removeCompletedItem(toDoTasks);
