@@ -4,7 +4,7 @@
 
 In this project, I set up my To-Do List web page. My goal was add functionalities like create, display, drag/drop, refresh index and completed status, remove and add a task in my task list. 
 
-- ![screenshot](/public/To-do-list-website.png)
+![screenshot](/public/To-do-list-website.png)
 
 ## :red_circle: Live Demo
 
