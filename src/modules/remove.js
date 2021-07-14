@@ -5,3 +5,16 @@ export const removeAllItems = (tasks, container) => {
 
 export const removeAllIcon = document.querySelector('.refresf-icon');
 
+export const clearCompletedTasks = document.querySelector('.btn-clear');
+
+export const removeCompletedItem = (tasks) => {
+    let newtasks = tasks.filter(task => task.completed === false);
+    tasks = newtasks;
+}
+
+export const removeSelectedItem = (tasks, index) => {
+    tasks.splice(parseInt(index, 10),1);
+    task.forEach((task,index) => {
+        task.index = index;
+    })
+}
