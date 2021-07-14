@@ -96,6 +96,7 @@ const refreshEditableItems = (tasks) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   getTaskData();
+  setData();
   displayTasks();
   checkBoxStatusContentLoad();
   refrestTargetDragDrop();
