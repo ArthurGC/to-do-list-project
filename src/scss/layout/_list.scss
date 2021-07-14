@@ -56,6 +56,10 @@
     }
 
     ul {
+      min-height: 200px;
+      max-height: 45vh;
+      overflow: auto;
+
       li {
         @include muli-text(15px, 500, 24px);
         @include flex(row, center, space-between);
@@ -70,29 +74,29 @@
         }
 
         label {
-          flex-basis: 80%;
+          flex-basis: 77%;
           outline: none;
           border-radius: 5px;
           padding: 0 8px;
         }
 
         .icon-item {
+          text-align: center;
           cursor: move;
-          flex-basis: 3%;
+          flex-basis: 8%;
           color: #aaa;
         }
 
         .remove {
-          display: none;
-          cursor: not-allowed;
-          flex-basis: 3%;
+          flex-basis: 5%;
+          cursor: pointer;
           color: #aaa;
         }
       }
     }
 
     .btn-clear {
-      position: absolute;
+      position: sticky;
       left: 0;
       bottom: 0;
       width: 100%;
