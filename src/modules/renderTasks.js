@@ -8,7 +8,7 @@ export const createItemTask = (task) => {
       <input class="checkbox" type="checkbox" data-id="${task.index}" checked>
       <label class="text-task" data-id="${task.index}" contenteditable=true>${task.description} </label><br>
       <i class="fas fa-ellipsis-v icon-item"></i>
-      <i class="fas fa-trash-alt remove"></i>
+      <i class="fas fa-trash-alt remove" data-id="${task.index}"></i>
       </li>
       `,
     );
@@ -19,7 +19,7 @@ export const createItemTask = (task) => {
       <input class="checkbox" type="checkbox" data-id="${task.index}">
       <label class="text-task" data-id="${task.index}" contenteditable=true>${task.description}</label><br>
       <i class="fas fa-ellipsis-v icon-item"></i>
-      <i class="fas fa-trash-alt remove"></i>
+      <i class="fas fa-trash-alt remove" data-id="${task.index}"></i>
       </li>
       `,
     );
