@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
   displayTasks();
   checkBoxStatusContentLoad();
   refrestTargetDragDrop();
-  refreshEditableItems();
+  refreshEditableItems(toDoTasks);
 });
 
 listContainer.addEventListener('click', (e) => {
@@ -115,12 +115,12 @@ listContainer.addEventListener('click', (e) => {
     setData();
     displayTasks();
     refrestTargetDragDrop();
-    refreshEditableItems();
+    refreshEditableItems(toDoTasks);
   }
 });
 
 removeAllIcon.addEventListener('click', () => {
-  removeAllItems(toDoTasks, listContainer);
+  toDoTasks = removeAllItems(toDoTasks, listContainer);
   setData();
 });
 
@@ -131,6 +131,8 @@ inputTask.addEventListener('keyup', (e) => {
     addTask(toDoTasks, input);
     setData();
     displayTasks();
+    refrestTargetDragDrop();
+    refreshEditableItems(toDoTasks);
     input.value = '';
   }
 });
@@ -144,6 +146,6 @@ clearCompletedTasks.addEventListener('click', () => {
     setData();
     displayTasks();
     refrestTargetDragDrop();
-    refreshEditableItems();
+    refreshEditableItems(toDoTasks);
   }
 });

@@ -1,6 +1,6 @@
 export const removeAllItems = (tasks, container) => {
   container.innerHTML = '';
-  tasks = [];
+  return [];
 };
 
 export const removeAllIcon = document.querySelector('.refresf-icon');
