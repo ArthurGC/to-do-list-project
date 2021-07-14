@@ -136,9 +136,14 @@ inputTask.addEventListener('keyup', (e) => {
 });
 
 clearCompletedTasks.addEventListener('click', () => {
-  removeCompletedItem(toDoTasks);
-  setData();
-  displayTasks();
-  refrestTargetDragDrop();
-  refreshEditableItems();
+  if (toDoTasks.length > 0) {
+    toDoTasks = removeCompletedItem(toDoTasks);
+    toDoTasks.forEach((task, index) => {
+      task.index = index;
+    });
+    setData();
+    displayTasks();
+    refrestTargetDragDrop();
+    refreshEditableItems();
+  }
 });

@@ -9,7 +9,7 @@ export const clearCompletedTasks = document.querySelector('.btn-clear');
 
 export const removeCompletedItem = (tasks) => {
   const newtasks = tasks.filter((task) => task.completed === false);
-  tasks = newtasks;
+  return newtasks;
 };
 
 export const removeSelectedItem = (tasks, index) => {

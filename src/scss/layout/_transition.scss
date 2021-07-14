@@ -5,12 +5,12 @@
       background: rgb(241, 255, 110);
     }
 
-    .text-task:focus ~ .icon-item {
-      display: none;
+    .icon-item:hover {
+      color: lawngreen;
     }
 
-    .text-task:focus ~ .remove {
-      display: block;
+    .remove:hover {
+      color: red;
     }
   }
 }
