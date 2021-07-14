@@ -7,7 +7,7 @@ import {
 import { checkBoxStatus, changeStyleTask } from './modules/checkStatus.js';
 import { Task, inputTask, addTask } from './modules/addtask.js';
 import {
-  clearCompletedTasks, removeAllIcon, removeAllItems, removeCompletedItem, removeSelectedItem
+  clearCompletedTasks, removeAllIcon, removeAllItems, removeCompletedItem, removeSelectedItem,
 } from './modules/remove.js';
 
 let toDoTasks = [
