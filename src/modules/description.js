@@ -3,7 +3,7 @@ import { getElements } from './tools.js';
 
 
 export const refreshDescriptions = () => {
-    let descriptionLabels = getElements('.text-task');
+    let descriptionLabels = getElements('.container-list li .text-task');
     descriptionLabels.forEach(label => {
         label.addEventListener('input', () => {
             let listTasks = getDataLocalStorage();

@@ -1,4 +1,5 @@
-import { getDataLocalStorage } from './store.js';
+import { listTasks } from './initial.js';
+import { getDataLocalStorage, setDataLocalStorage } from './store.js';
 import { createElement, getElement } from './tools.js';
 
 let listContainer = getElement('.container-list');
@@ -43,12 +44,12 @@ const createTaskStructure = (task) => {
 }
 
 export const renderTaskDom = () => {
-    let listTasks = getDataLocalStorage();
-    if (listTasks === []) {
-        listContainer.innerHTML = '';
-    } else {
-        listTasks.forEach(task => createTaskStructure(task));
+    let listTask = getDataLocalStorage();
+    if (listTask === listTasks) {
+        setDataLocalStorage(listTask);
     }
+    listContainer.innerHTML = '';
+    listTask.forEach(task => createTaskStructure(task));
     
 }
 

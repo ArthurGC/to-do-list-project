@@ -1,5 +1,5 @@
 import { getDataLocalStorage, setDataLocalStorage } from './store.js';
-import { getElementValue } from './tools.js';
+import { getElementValue, getElement } from './tools.js';
 import { renderTaskDom } from './render.js';
 import { refreshDragDropTarget } from './drag-drop.js'
 import { refreshDescriptions } from './description.js';
