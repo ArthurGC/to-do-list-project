@@ -1,20 +1,35 @@
-export const removeAllItems = (tasks, container) => {
-  container.innerHTML = '';
-  return [];
+import { setDataLocalStorage, getDataLocalStorage } from './store.js';
+import { refreshIndex, renderTaskDom } from './render.js';
+import { refreshDragDropTarget } from './drag-drop.js';
+import { refreshDescriptions } from './description.js';
+
+export const removeTask = (event) => {
+  if (event.target.classList.contains('remove')) {
+    const listTasks = getDataLocalStorage();
+    const id = parseInt(event.target.parentElement.dataset.id, 10);
+    listTasks.splice(id, 1);
+    refreshIndex(listTasks);
+    setDataLocalStorage(listTasks);
+    renderTaskDom();
+    refreshDragDropTarget();
+    refreshDescriptions();
+  }
 };
 
-export const removeAllIcon = document.querySelector('.refresf-icon');
-
-export const clearCompletedTasks = document.querySelector('.btn-clear');
-
-export const removeCompletedItem = (tasks) => {
-  const newtasks = tasks.filter((task) => task.completed === false);
-  return newtasks;
+export const removeTaskChecked = () => {
+  const listTasks = getDataLocalStorage();
+  if (listTasks !== []) {
+    const newListTask = listTasks.filter((task) => task.status === false);
+    refreshIndex(newListTask);
+    setDataLocalStorage(newListTask);
+    renderTaskDom();
+    refreshDragDropTarget();
+    refreshDescriptions();
+  }
 };
 
-export const removeSelectedItem = (tasks, index) => {
-  tasks.splice(parseInt(index, 10), 1);
-  tasks.forEach((task, index) => {
-    task.index = index;
-  });
+export const removeAllTask = () => {
+  const listTasks = [];
+  setDataLocalStorage(listTasks);
+  renderTaskDom();
 };
