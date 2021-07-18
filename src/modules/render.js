@@ -2,31 +2,31 @@ import { listTasks } from './initial.js';
 import { getDataLocalStorage, setDataLocalStorage } from './store.js';
 import { createElement, getElement } from './tools.js';
 
-let listContainer = getElement('.container-list');
+const listContainer = getElement('.container-list');
 
 const createTaskStructure = (task) => {
-  const taskContainer = createElement("li");
+  const taskContainer = createElement('li');
   taskContainer.dataset.id = task.index;
-  taskContainer.setAttribute("draggable", "true");
-  taskContainer.classList.add("item");
+  taskContainer.setAttribute('draggable', 'true');
+  taskContainer.classList.add('item');
 
-  const checkBox = createElement("input");
-  checkBox.setAttribute("type", "checkbox");
-  checkBox.classList.add("checkbox");
+  const checkBox = createElement('input');
+  checkBox.setAttribute('type', 'checkbox');
+  checkBox.classList.add('checkbox');
   if (task.status) {
-    checkBox.setAttribute("checked", "true");
+    checkBox.setAttribute('checked', 'true');
   }
 
-  const description = createElement("label");
-  description.setAttribute("contenteditable", "true");
-  description.classList.add("text-task");
+  const description = createElement('label');
+  description.setAttribute('contenteditable', 'true');
+  description.classList.add('text-task');
   description.textContent = task.description;
   if (task.status) {
-    description.classList.add("completed");
+    description.classList.add('completed');
   }
 
-  const iconRemove = createElement("i");
-  iconRemove.classList.add("fas", "fa-trash-alt", "remove");
+  const iconRemove = createElement('i');
+  iconRemove.classList.add('fas', 'fa-trash-alt', 'remove');
 
   taskContainer.appendChild(checkBox);
   taskContainer.appendChild(description);
@@ -41,20 +41,19 @@ const createTaskStructure = (task) => {
   //         <i class="fas fa-trash-alt remove"></i>
   //     </li>`,
   // );
-}
+};
 
 export const renderTaskDom = () => {
-    let listTask = getDataLocalStorage();
-    if (listTask === listTasks) {
-        setDataLocalStorage(listTask);
-    }
-    listContainer.innerHTML = '';
-    listTask.forEach(task => createTaskStructure(task));
-    
-}
+  const listTask = getDataLocalStorage();
+  if (listTask === listTasks) {
+    setDataLocalStorage(listTask);
+  }
+  listContainer.innerHTML = '';
+  listTask.forEach((task) => createTaskStructure(task));
+};
 
 export const refreshIndex = (listTasks) => {
-    listTasks.forEach((task, index) => {
-        task.index = index;
-    });
-}
+  listTasks.forEach((task, index) => {
+    task.index = index;
+  });
+};

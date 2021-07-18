@@ -1,19 +1,19 @@
 import { setDataLocalStorage } from './store.js';
-import { getChildren, getElement, getElements } from "./tools";
-import { task } from './add.js';
+import { getChildren, getElement, getElements } from './tools.js';
+import { Task } from './classes.js';
 
-let listContainer = getElement('.container-list');
+const listContainer = getElement('.container-list');
 
 const refreshInformation = () => {
-    let listTasks = [];
-    let items = getChildren(listContainer);
-    items.forEach((item, index) => {
-      const newTask = new task(item.children[1].textContent, item.children[0].checked, index);
-      listTasks.push(newTask);
-    });
+  const listTasks = [];
+  const items = getChildren(listContainer);
+  items.forEach((item, index) => {
+    const newTask = new Task(item.children[1].textContent, item.children[0].checked, index);
+    listTasks.push(newTask);
+  });
 
-    setDataLocalStorage(listTasks);
-}
+  setDataLocalStorage(listTasks);
+};
 
 let firstElementDragging;
 
@@ -34,7 +34,7 @@ const dragOver = (e) => {
 
 const drop = (e) => {
   e.stopPropagation();
-  let secondElementDrop = e.currentTarget;
+  const secondElementDrop = e.currentTarget;
 
   if (firstElementDragging !== secondElementDrop) {
     firstElementDragging.innerHTML = secondElementDrop.innerHTML;
@@ -44,15 +44,15 @@ const drop = (e) => {
 };
 
 const addListenerDragDrop = (listTasks) => {
-    listTasks.forEach(task => {
-        task.addEventListener('dragstart', dragStart);
-        task.addEventListener('dragend', dragEnd);
-        task.addEventListener('dragover', dragOver);
-        task.addEventListener('drop', drop);
-    });
-}
+  listTasks.forEach((task) => {
+    task.addEventListener('dragstart', dragStart);
+    task.addEventListener('dragend', dragEnd);
+    task.addEventListener('dragover', dragOver);
+    task.addEventListener('drop', drop);
+  });
+};
 
 export const refreshDragDropTarget = () => {
-    let targets = getElements('.item');
-    addListenerDragDrop(targets);
-}
+  const targets = getElements('.item');
+  addListenerDragDrop(targets);
+};
