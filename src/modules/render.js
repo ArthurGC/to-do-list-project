@@ -1,25 +1,59 @@
-import { getDataLocalStorage } from './modules/store.js';
-import { getElement } from './tools.js';
+import { getDataLocalStorage } from './store.js';
+import { createElement, getElement } from './tools.js';
 
 let listContainer = getElement('.container-list');
 
 const createTaskStructure = (task) => {
-    listContainer.insertAdjacentHTML(
-        'beforeend',
-        `<li data-id="${task.index}" draggable="true" class="item">
-        <input class="checkbox" type="checkbox" data-id="${task.index}">
-        <label class="text-task" data-id="${task.index}" contenteditable=true>${task.description}</label><br>
-        <i class="fas fa-trash-alt remove" data-id="${task.index}"></i>
-        </li>
-        `,
-    );
-    
-    if (task.status) {
-        let checkbox = getElement()
-    }
+  const taskContainer = createElement("li");
+  taskContainer.dataset.id = task.index;
+  taskContainer.setAttribute("draggable", "true");
+  taskContainer.classList.add("item");
+
+  const checkBox = createElement("input");
+  checkBox.setAttribute("type", "checkbox");
+  checkBox.classList.add("checkbox");
+  if (task.status) {
+    checkBox.setAttribute("checked", "true");
+  }
+
+  const description = createElement("label");
+  description.setAttribute("contenteditable", "true");
+  description.classList.add("text-task");
+  description.textContent = task.description;
+  if (task.status) {
+    description.classList.add("completed");
+  }
+
+  const iconRemove = createElement("i");
+  iconRemove.classList.add("fas", "fa-trash-alt", "remove");
+
+  taskContainer.appendChild(checkBox);
+  taskContainer.appendChild(description);
+  taskContainer.appendChild(iconRemove);
+  listContainer.appendChild(taskContainer);
+
+  // listContainer.insertAdjacentHTML(
+  //     'beforeend',
+  //     `<li data-id="${task.index}" draggable="true" class="item">
+  //         <input class="checkbox" type="checkbox" checked>
+  //         <label class="text-task" contenteditable=true>${task.description}</label><br>
+  //         <i class="fas fa-trash-alt remove"></i>
+  //     </li>`,
+  // );
 }
 
-const renderTaskDom = () => {
+export const renderTaskDom = () => {
     let listTasks = getDataLocalStorage();
-    listTasks.forEach(task => createTaskStructure(task));
+    if (listTasks === []) {
+        listContainer.innerHTML = '';
+    } else {
+        listTasks.forEach(task => createTaskStructure(task));
+    }
+    
+}
+
+export const refreshIndex = (listTasks) => {
+    listTasks.forEach((task, index) => {
+        task.index = index;
+    });
 }

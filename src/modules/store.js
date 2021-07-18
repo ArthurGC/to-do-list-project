@@ -1,4 +1,4 @@
-import { listTasks } from './modules/initial.js';
+import { listTasks } from './initial.js';
 
 export const getDataLocalStorage = () => {
     return localStorage.getItem('TaskData') || listTasks;
