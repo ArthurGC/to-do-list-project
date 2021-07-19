@@ -3,6 +3,7 @@ import { getDataLocalStorage, setDataLocalStorage } from './store.js';
 import { createElement, getElement } from './tools.js';
 
 const listContainer = getElement('.container-list');
+let fragment = document.createDocumentFragment();
 
 const createTaskStructure = (task) => {
   const taskContainer = createElement('li');
@@ -31,7 +32,7 @@ const createTaskStructure = (task) => {
   taskContainer.appendChild(checkBox);
   taskContainer.appendChild(description);
   taskContainer.appendChild(iconRemove);
-  listContainer.appendChild(taskContainer);
+  fragment.appendChild(taskContainer);
 
 };
 
@@ -42,6 +43,7 @@ export const renderTaskDom = () => {
   }
   listContainer.innerHTML = '';
   list.forEach((task) => createTaskStructure(task));
+  listContainer.appendChild(fragment);
 };
 
 export const refreshIndex = (listTasks) => {
