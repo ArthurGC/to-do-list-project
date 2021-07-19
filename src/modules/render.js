@@ -3,6 +3,7 @@ import { getDataLocalStorage, setDataLocalStorage } from './store.js';
 import { createElement, getElement } from './tools.js';
 
 const listContainer = getElement('.container-list');
+const fragment = document.createDocumentFragment();
 
 const createTaskStructure = (task) => {
   const taskContainer = createElement('li');
@@ -31,25 +32,17 @@ const createTaskStructure = (task) => {
   taskContainer.appendChild(checkBox);
   taskContainer.appendChild(description);
   taskContainer.appendChild(iconRemove);
-  listContainer.appendChild(taskContainer);
-
-  // listContainer.insertAdjacentHTML(
-  //     'beforeend',
-  //     `<li data-id="${task.index}" draggable="true" class="item">
-  //         <input class="checkbox" type="checkbox" checked>
-  //         <label class="text-task" contenteditable=true>${task.description}</label><br>
-  //         <i class="fas fa-trash-alt remove"></i>
-  //     </li>`,
-  // );
+  fragment.appendChild(taskContainer);
 };
 
 export const renderTaskDom = () => {
-  const listTask = getDataLocalStorage();
-  if (listTask === listTasks) {
-    setDataLocalStorage(listTask);
+  const list = getDataLocalStorage();
+  if (list === listTasks) {
+    setDataLocalStorage(list);
   }
   listContainer.innerHTML = '';
-  listTask.forEach((task) => createTaskStructure(task));
+  list.forEach((task) => createTaskStructure(task));
+  listContainer.appendChild(fragment);
 };
 
 export const refreshIndex = (listTasks) => {
