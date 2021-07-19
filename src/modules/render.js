@@ -36,12 +36,12 @@ const createTaskStructure = (task) => {
 };
 
 export const renderTaskDom = () => {
-  const listTask = getDataLocalStorage();
-  if (listTask === listTasks) {
-    setDataLocalStorage(listTask);
+  const list = getDataLocalStorage();
+  if (list === listTasks) {
+    setDataLocalStorage(list);
   }
   listContainer.innerHTML = '';
-  listTask.forEach((task) => createTaskStructure(task));
+  list.forEach((task) => createTaskStructure(task));
 };
 
 export const refreshIndex = (listTasks) => {
