@@ -33,14 +33,6 @@ const createTaskStructure = (task) => {
   taskContainer.appendChild(iconRemove);
   listContainer.appendChild(taskContainer);
 
-  // listContainer.insertAdjacentHTML(
-  //     'beforeend',
-  //     `<li data-id="${task.index}" draggable="true" class="item">
-  //         <input class="checkbox" type="checkbox" checked>
-  //         <label class="text-task" contenteditable=true>${task.description}</label><br>
-  //         <i class="fas fa-trash-alt remove"></i>
-  //     </li>`,
-  // );
 };
 
 export const renderTaskDom = () => {
