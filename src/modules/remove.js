@@ -4,7 +4,8 @@ import { refreshDragDropTarget } from './drag-drop.js';
 import { refreshDescriptions } from './description.js';
 
 export const removeTask = (event) => {
-  if (event.target.classList.contains('remove')) {
+  let isRemoveIcon = event.target.classList.contains('remove');
+  if (isRemoveIcon) {
     const listTasks = getDataLocalStorage();
     const id = parseInt(event.target.parentElement.dataset.id, 10);
     listTasks.splice(id, 1);
