@@ -1,7 +1,7 @@
 import { setDataLocalStorage, getDataLocalStorage } from './store.js';
 
 export const refreshStatus = (event) => {
-  let isCheckBox = event.target.classList.contains('checkbox');
+  const isCheckBox = event.target.classList.contains('checkbox');
   if (isCheckBox) {
     const listTasks = getDataLocalStorage();
     const id = parseInt(event.target.parentElement.dataset.id, 10);

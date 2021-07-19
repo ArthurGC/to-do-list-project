@@ -3,7 +3,7 @@ import { getDataLocalStorage, setDataLocalStorage } from './store.js';
 import { createElement, getElement } from './tools.js';
 
 const listContainer = getElement('.container-list');
-let fragment = document.createDocumentFragment();
+const fragment = document.createDocumentFragment();
 
 const createTaskStructure = (task) => {
   const taskContainer = createElement('li');
@@ -33,7 +33,6 @@ const createTaskStructure = (task) => {
   taskContainer.appendChild(description);
   taskContainer.appendChild(iconRemove);
   fragment.appendChild(taskContainer);
-
 };
 
 export const renderTaskDom = () => {
