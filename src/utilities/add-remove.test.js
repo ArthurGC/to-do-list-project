@@ -4,7 +4,7 @@
 
 const { expect, test } = require("@jest/globals");
 
-describe('Test add-remove', () => {
+describe('Test add', () => {
 
     document.body.innerHTML =
         '<div>' +
@@ -66,4 +66,42 @@ describe('Test add-remove', () => {
         }]);
         getDataLocalStorage.mockReturnValue([]);
     })
+});
+
+describe('Test remove', () => {
+
+
+    const bundleRefreshHandlersAndUpdate = jest.fn();
+    const getDataLocalStorage = jest.fn();
+    getDataLocalStorage.mockReturnValue([
+        {
+            description: '',
+            status: false,
+            index: 0
+        }
+    ]);
+    
+    document.body.innerHTML =
+        '<div>' +
+        '<input type="text" name="task" id="task" class="input-task" value="Hello">' +
+        '<ul class="container-list">' +
+        '<li data-id="0"><i class="fas fa-trash-alt remove"></i></li>' +
+        '</ul>' +
+        '</div>';
+    let element = document.querySelector('.remove');
+    const removeTask = (element) => {
+        const isRemoveIcon = element.classList.contains('remove');
+        console.log(isRemoveIcon)
+        if (isRemoveIcon) {
+          const listTasks = getDataLocalStorage();
+          const id = parseInt(element.parentElement.dataset.id, 10);
+          listTasks.splice(id, 1);
+          bundleRefreshHandlersAndUpdate(listTasks);
+          return listTasks;
+        }
+    };
+    
+    test('Task is removed', () => {
+      expect(removeTask(element)).toEqual([])
+    });
 });
