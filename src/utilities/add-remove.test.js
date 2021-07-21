@@ -2,16 +2,15 @@
  * @jest-environment jsdom
  */
 
-const { expect, test } = require("@jest/globals");
+const { expect, test } = require('@jest/globals');
 
-describe("Test add", () => {
+describe('Test add', () => {
   // Arrange --------------------------------------------------------------------------->
-  document.body.innerHTML =
-    "<div>" +
-    '<input type="text" name="task" id="task" class="input-task" value="Hello">' +
-    '<ul class="container-list"></ul>' +
-    "</div>";
-  let event = {
+  document.body.innerHTML = '<div>'
+    + '<input type="text" name="task" id="task" class="input-task" value="Hello">'
+    + '<ul class="container-list"></ul>'
+    + '</div>';
+  const event = {
     keyCode: 13,
   };
 
@@ -36,18 +35,18 @@ describe("Test add", () => {
   }
 
   const renderTaskDom = () => {
-    let listTasks = LocalStorage.getDataLocalStorage();
-    let container = document.querySelector(".container-list");
-    let input = document.querySelector(".input-task");
-    let task = document.createElement("li");
-    task.classList.add("item");
+    const listTasks = LocalStorage.getDataLocalStorage();
+    const container = document.querySelector('.container-list');
+    const input = document.querySelector('.input-task');
+    const task = document.createElement('li');
+    task.classList.add('item');
     task.dataset.id = listTasks.length;
-    let checkBox = document.createElement("input");
-    checkBox.setAttribute("type", "checkbox");
-    let label = document.createElement("label");
+    const checkBox = document.createElement('input');
+    checkBox.setAttribute('type', 'checkbox');
+    const label = document.createElement('label');
     label.textContent = input.value;
-    let icon = document.createElement("i");
-    icon.classList.add("fas", "fa-trash-alt", "remove");
+    const icon = document.createElement('i');
+    icon.classList.add('fas', 'fa-trash-alt', 'remove');
 
     task.appendChild(checkBox);
     task.appendChild(label);
@@ -56,63 +55,64 @@ describe("Test add", () => {
   };
 
   const checkElementsInTaskDOM = () => {
-    let task = document.querySelector(".item");
-    let childrenTask = [...task.children];
-    let checkBox = childrenTask[0];
-    let label = childrenTask[1];
-    let icon = childrenTask[2];
+    const task = document.querySelector('.item');
+    const childrenTask = [...task.children];
+    const checkBox = childrenTask[0];
+    const label = childrenTask[1];
+    const icon = childrenTask[2];
     return [checkBox, label, icon, task];
   };
 
   const refreshDragDropTarget = jest.fn();
   const refreshDescriptions = jest.fn();
 
-  //Act --------------------------------------------------------------------------->
+  // Act --------------------------------------------------------------------------->
   const add = (event) => {
     if (event.keyCode === 13) {
-      let listTasks = LocalStorage.getDataLocalStorage();
-      let input = document.querySelector(".input-task");
-      let inputValue = input.value;
-      let newTask = new Task(inputValue, false, listTasks.length);
+      const listTasks = LocalStorage.getDataLocalStorage();
+      const input = document.querySelector('.input-task');
+      const inputValue = input.value;
+      const newTask = new Task(inputValue, false, listTasks.length);
       listTasks.push(newTask);
       LocalStorage.setDataLocalStorage(listTasks);
-      input.value = "";
+      input.value = '';
       renderTaskDom();
       refreshDragDropTarget();
       refreshDescriptions();
       return listTasks;
     }
+    return false;
   };
 
-  let addFunction = add(event);
+  const addFunction = add(event);
 
   //   Assert --------------------------------------------------------------------------->
-  test("add task to the list", () => {
+  test('add task to the list', () => {
     expect(addFunction.length === 1).toBeTruthy();
   });
 
-  test("task contains a right index", () => {
+  test('task contains a right index', () => {
     expect(addFunction[addFunction.length - 1].index).toBe(0);
   });
 
-  test("add a object", () => {
+  test('add a object', () => {
     expect(addFunction).toEqual([
       {
-        description: "Hello",
+        description: 'Hello',
         status: false,
         index: 0,
       },
     ]);
   });
 
-  test("add task to DOM", () => {
+  test('add task to DOM', () => {
     expect(checkElementsInTaskDOM()[3]).toBeDefined();
   });
 
-  test("test get localStorage", () => {
+  test('test get localStorage', () => {
     expect(LocalStorage.getDataLocalStorage()).toEqual([
       {
-        description: "Hello",
+        description: 'Hello',
         status: false,
         index: 0,
       },
@@ -120,17 +120,16 @@ describe("Test add", () => {
   });
 });
 
-describe("Test remove", () => {
+describe('Test remove', () => {
   // Arrange --------------------------------------------------------------------------->
-  document.body.innerHTML =
-    "<div>" +
-    '<input type="text" name="task" id="task" class="input-task" value="Hello">' +
-    '<ul class="container-list">' +
-    '<li data-id="0" class="item"><i class="fas fa-trash-alt remove"></i></li>' +
-    '<li data-id="1" class="item"><i class="fas fa-trash-alt remove"></i></li>' +
-    '<li data-id="2" class="item"><i class="fas fa-trash-alt remove"></i></li>' +
-    "</ul>" +
-    "</div>";
+  document.body.innerHTML = '<div>'
+    + '<input type="text" name="task" id="task" class="input-task" value="Hello">'
+    + '<ul class="container-list">'
+    + '<li data-id="0" class="item"><i class="fas fa-trash-alt remove"></i></li>'
+    + '<li data-id="1" class="item"><i class="fas fa-trash-alt remove"></i></li>'
+    + '<li data-id="2" class="item"><i class="fas fa-trash-alt remove"></i></li>'
+    + '</ul>'
+    + '</div>';
   class LocalStorage {
     static list = [];
 
@@ -143,19 +142,19 @@ describe("Test remove", () => {
     }
   }
 
-  let listTask = [
+  const listTask = [
     {
-      description: "chocolate",
+      description: 'chocolate',
       status: false,
       index: 0,
     },
     {
-      description: "candy",
+      description: 'candy',
       status: true,
       index: 1,
     },
     {
-      description: "pie",
+      description: 'pie',
       status: false,
       index: 2,
     },
@@ -165,28 +164,26 @@ describe("Test remove", () => {
 
   const bundleRefreshHandlersAndUpdate = (list) => {
     LocalStorage.setDataLocalStorage(list);
-    let firstArray = [];
-    let secondArray = [];
-    for (let i = 0; i <= list.length; i++) {
+    const firstArray = [];
+    const secondArray = [];
+    for (let i = 0; i <= list.length; i += 1) {
       firstArray.push(i);
     }
     list.forEach((element) => secondArray.push(element.index));
 
-    let difference = firstArray.filter((x) => secondArray.indexOf(x) === -1);
-    let templateString = `li[data-id="${difference[0]}"]`;
-    let element = document.querySelector(templateString);
+    const difference = firstArray.filter((x) => secondArray.indexOf(x) === -1);
+    const templateString = `li[data-id="${difference[0]}"]`;
+    const element = document.querySelector(templateString);
     element.remove();
   };
 
-  const checkNumberTask = () => {
-    return [...document.querySelector(".container-list").children].length;
-  };
+  const checkNumberTask = () => [...document.querySelector('.container-list').children].length;
 
-  let element = document.querySelector('li[data-id="0"] .remove');
+  const element = document.querySelector('li[data-id="0"] .remove');
 
   //  Act --------------------------------------------------------------------------->
   const removeTask = (element) => {
-    const isRemoveIcon = element.classList.contains("remove");
+    const isRemoveIcon = element.classList.contains('remove');
     if (isRemoveIcon) {
       const listTasks = LocalStorage.getDataLocalStorage();
       const id = parseInt(element.parentElement.dataset.id, 10);
@@ -194,26 +191,27 @@ describe("Test remove", () => {
       bundleRefreshHandlersAndUpdate(listTasks);
       return listTasks;
     }
+    return false;
   };
 
   //  Assert --------------------------------------------------------------------------->
-  test("Task is removed from Array", () => {
+  test('Task is removed from Array', () => {
     expect(removeTask(element)).toHaveLength(2);
   });
 
-  test("Task is removed from DOM", () => {
+  test('Task is removed from DOM', () => {
     expect(checkNumberTask()).toBe(2);
   });
 
-  test("test get localStorage", () => {
+  test('test get localStorage', () => {
     expect(LocalStorage.getDataLocalStorage()).toEqual([
       {
-        description: "candy",
+        description: 'candy',
         status: true,
         index: 1,
       },
       {
-        description: "pie",
+        description: 'pie',
         status: false,
         index: 2,
       },
