@@ -13,7 +13,6 @@
   "rules": {
     "import/prefer-default-export": "off",
     "no-shadow": "off",
-    "max-classes-per-file": "off",
     "no-param-reassign": "off",
     "eol-last": "off",
     "import/extensions": [ 1, {

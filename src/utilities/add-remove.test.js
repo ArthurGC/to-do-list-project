@@ -1,8 +1,10 @@
 /**
  * @jest-environment jsdom
  */
-
+const Task = require('./task.js');
+const LocalStorage = require('./localStorage.js');
 const { expect, test } = require('@jest/globals');
+const { clearDataLocalStorage } = require('./localStorage.js');
 
 describe('Test add', () => {
   // Arrange --------------------------------------------------------------------------->
@@ -14,28 +16,21 @@ describe('Test add', () => {
     keyCode: 13,
   };
 
-  class LocalStorage {
-    static list = [];
+//   class LocalStorage {
+//     static list = [];
 
-    static setDataLocalStorage(item) {
-      this.list = item;
-    }
+//     static setDataLocalStorage(item) {
+//       this.list = item;
+//     }
 
-    static getDataLocalStorage() {
-      return this.list;
-    }
-  }
-
-  class Task {
-    constructor(description, status, index) {
-      this.description = description;
-      this.status = status;
-      this.index = index;
-    }
-  }
+//     static getDataLocalStorage() {
+//       return this.list;
+//     }
+//   }
+  let localStorage = new LocalStorage()
 
   const renderTaskDom = () => {
-    const listTasks = LocalStorage.getDataLocalStorage();
+    const listTasks = localStorage.getDataLocalStorage();
     const container = document.querySelector('.container-list');
     const input = document.querySelector('.input-task');
     const task = document.createElement('li');
@@ -69,12 +64,12 @@ describe('Test add', () => {
   // Act --------------------------------------------------------------------------->
   const add = (event) => {
     if (event.keyCode === 13) {
-      const listTasks = LocalStorage.getDataLocalStorage();
+      const listTasks = localStorage.getDataLocalStorage();
       const input = document.querySelector('.input-task');
       const inputValue = input.value;
       const newTask = new Task(inputValue, false, listTasks.length);
       listTasks.push(newTask);
-      LocalStorage.setDataLocalStorage(listTasks);
+      localStorage.setDataLocalStorage(listTasks);
       input.value = '';
       renderTaskDom();
       refreshDragDropTarget();
@@ -110,7 +105,7 @@ describe('Test add', () => {
   });
 
   test('test get localStorage', () => {
-    expect(LocalStorage.getDataLocalStorage()).toEqual([
+    expect(localStorage.getDataLocalStorage()).toEqual([
       {
         description: 'Hello',
         status: false,
@@ -130,17 +125,6 @@ describe('Test remove', () => {
     + '<li data-id="2" class="item"><i class="fas fa-trash-alt remove"></i></li>'
     + '</ul>'
     + '</div>';
-  class LocalStorage {
-    static list = [];
-
-    static setDataLocalStorage(item) {
-      this.list = item;
-    }
-
-    static getDataLocalStorage() {
-      return this.list;
-    }
-  }
 
   const listTask = [
     {
@@ -159,11 +143,11 @@ describe('Test remove', () => {
       index: 2,
     },
   ];
-
-  LocalStorage.setDataLocalStorage(listTask);
+  let localStorage = new LocalStorage()
+  localStorage.setDataLocalStorage(listTask);
 
   const bundleRefreshHandlersAndUpdate = (list) => {
-    LocalStorage.setDataLocalStorage(list);
+    localStorage.setDataLocalStorage(list);
     const firstArray = [];
     const secondArray = [];
     for (let i = 0; i <= list.length; i += 1) {
@@ -185,7 +169,7 @@ describe('Test remove', () => {
   const removeTask = (element) => {
     const isRemoveIcon = element.classList.contains('remove');
     if (isRemoveIcon) {
-      const listTasks = LocalStorage.getDataLocalStorage();
+      const listTasks = localStorage.getDataLocalStorage();
       const id = parseInt(element.parentElement.dataset.id, 10);
       listTasks.splice(id, 1);
       bundleRefreshHandlersAndUpdate(listTasks);
@@ -204,7 +188,7 @@ describe('Test remove', () => {
   });
 
   test('test get localStorage', () => {
-    expect(LocalStorage.getDataLocalStorage()).toEqual([
+    expect(localStorage.getDataLocalStorage()).toEqual([
       {
         description: 'candy',
         status: true,
