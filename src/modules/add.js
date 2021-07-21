@@ -8,8 +8,8 @@ import { Task } from './classes.js';
 export const addTask = (event) => {
   if (event.keyCode === 13) {
     const listTasks = getDataLocalStorage();
-    const input = getElement('.input-task');
-    const inputValue = getElementValue('.input-task');
+    const input = document.querySelector('.input-task');
+    const inputValue = input.value;
     const newTask = new Task(inputValue, false, listTasks.length);
     listTasks.push(newTask);
     setDataLocalStorage(listTasks);
@@ -17,5 +17,8 @@ export const addTask = (event) => {
     renderTaskDom();
     refreshDragDropTarget();
     refreshDescriptions();
+    return listTasks;
   }
 };
+
+module.exports = addTask;
