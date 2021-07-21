@@ -70,14 +70,36 @@ describe('Test add', () => {
 
 describe('Test remove', () => {
 
-
-    const bundleRefreshHandlersAndUpdate = jest.fn();
+    const bundleRefreshHandlersAndUpdate = (list) => {
+        let firstArray = [];
+        let secondArray = [];
+        for (let i = 0; i <= list.length; i++) {
+            firstArray.push(i);
+        }
+        list.forEach(element => secondArray.push(element.index));
+        
+        let difference = firstArray.filter(x => secondArray.indexOf(x) === -1);
+        let templateString = `li[data-id="${difference[0]}"]`;
+        console.log(document.body);
+        let element = document.querySelector(templateString)
+        element.remove();
+    };
     const getDataLocalStorage = jest.fn();
     getDataLocalStorage.mockReturnValue([
         {
-            description: '',
+            description: 'chocolate',
             status: false,
             index: 0
+        },
+        {
+            description: 'candy',
+            status: true,
+            index: 1
+        },
+        {
+            description: 'pie',
+            status: false,
+            index: 2
         }
     ]);
     
@@ -86,22 +108,28 @@ describe('Test remove', () => {
         '<input type="text" name="task" id="task" class="input-task" value="Hello">' +
         '<ul class="container-list">' +
         '<li data-id="0"><i class="fas fa-trash-alt remove"></i></li>' +
+        '<li data-id="1"><i class="fas fa-trash-alt remove"></i></li>' +
+        '<li data-id="2"><i class="fas fa-trash-alt remove"></i></li>' +
         '</ul>' +
         '</div>';
-    let element = document.querySelector('.remove');
+    let element = document.querySelector('li[data-id="0"] .remove');
     const removeTask = (element) => {
         const isRemoveIcon = element.classList.contains('remove');
-        console.log(isRemoveIcon)
         if (isRemoveIcon) {
           const listTasks = getDataLocalStorage();
           const id = parseInt(element.parentElement.dataset.id, 10);
           listTasks.splice(id, 1);
           bundleRefreshHandlersAndUpdate(listTasks);
+          console.log(listTasks);
           return listTasks;
         }
     };
     
-    test('Task is removed', () => {
-      expect(removeTask(element)).toEqual([])
+    test('Task is removed from Array', () => {
+      expect(removeTask(element)).toHaveLength(2)
     });
+
+    test('Task is removed from DOM', () => {
+        expect(removeTask(element)).toHaveLength(2)
+      });
 });
