@@ -1,10 +1,9 @@
 /**
  * @jest-environment jsdom
  */
+const { expect, test } = require('@jest/globals');
 const Task = require('./task.js');
 const LocalStorage = require('./localStorage.js');
-const { expect, test } = require('@jest/globals');
-const { clearDataLocalStorage } = require('./localStorage.js');
 
 describe('Test add', () => {
   // Arrange --------------------------------------------------------------------------->
@@ -16,18 +15,18 @@ describe('Test add', () => {
     keyCode: 13,
   };
 
-//   class LocalStorage {
-//     static list = [];
+  //   class LocalStorage {
+  //     static list = [];
 
-//     static setDataLocalStorage(item) {
-//       this.list = item;
-//     }
+  //     static setDataLocalStorage(item) {
+  //       this.list = item;
+  //     }
 
-//     static getDataLocalStorage() {
-//       return this.list;
-//     }
-//   }
-  let localStorage = new LocalStorage()
+  //     static getDataLocalStorage() {
+  //       return this.list;
+  //     }
+  //   }
+  const localStorage = new LocalStorage();
 
   const renderTaskDom = () => {
     const listTasks = localStorage.getDataLocalStorage();
@@ -143,7 +142,7 @@ describe('Test remove', () => {
       index: 2,
     },
   ];
-  let localStorage = new LocalStorage()
+  const localStorage = new LocalStorage();
   localStorage.setDataLocalStorage(listTask);
 
   const bundleRefreshHandlersAndUpdate = (list) => {
