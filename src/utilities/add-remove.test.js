@@ -15,6 +15,18 @@ describe("Test add", () => {
     keyCode: 13,
   };
 
+  class LocalStorage {
+    static list = [];
+
+    static setDataLocalStorage(item) {
+      this.list = item;
+    }
+
+    static getDataLocalStorage() {
+      return this.list;
+    }
+  }
+
   class Task {
     constructor(description, status, index) {
       this.description = description;
@@ -23,22 +35,19 @@ describe("Test add", () => {
     }
   }
 
-  const getDataLocalStorage = jest.fn();
-  getDataLocalStorage.mockReturnValue([]);
-  const setDataLocalStorage = jest.fn();
   const renderTaskDom = () => {
-    let listTasks = getDataLocalStorage();
-    let container = document.querySelector('.container-list');
+    let listTasks = LocalStorage.getDataLocalStorage();
+    let container = document.querySelector(".container-list");
     let input = document.querySelector(".input-task");
-    let task = document.createElement('li');
-    task.classList.add('item');
+    let task = document.createElement("li");
+    task.classList.add("item");
     task.dataset.id = listTasks.length;
-    let checkBox = document.createElement('input');
-    checkBox.setAttribute('type', 'checkbox');
-    let label = document.createElement('label');
+    let checkBox = document.createElement("input");
+    checkBox.setAttribute("type", "checkbox");
+    let label = document.createElement("label");
     label.textContent = input.value;
-    let icon = document.createElement('i');
-    icon.classList.add('fas', 'fa-trash-alt', 'remove');
+    let icon = document.createElement("i");
+    icon.classList.add("fas", "fa-trash-alt", "remove");
 
     task.appendChild(checkBox);
     task.appendChild(label);
@@ -47,13 +56,13 @@ describe("Test add", () => {
   };
 
   const checkElementsInTaskDOM = () => {
-      let task = document.querySelector('.item');
-      let childrenTask = [...task.children];
-      let checkBox = childrenTask[0];
-      let label = childrenTask[1];
-      let icon = childrenTask[2];
-      return [checkBox, label, icon, task];
-  }
+    let task = document.querySelector(".item");
+    let childrenTask = [...task.children];
+    let checkBox = childrenTask[0];
+    let label = childrenTask[1];
+    let icon = childrenTask[2];
+    return [checkBox, label, icon, task];
+  };
 
   const refreshDragDropTarget = jest.fn();
   const refreshDescriptions = jest.fn();
@@ -61,12 +70,12 @@ describe("Test add", () => {
   //Act --------------------------------------------------------------------------->
   const add = (event) => {
     if (event.keyCode === 13) {
-      let listTasks = getDataLocalStorage();
+      let listTasks = LocalStorage.getDataLocalStorage();
       let input = document.querySelector(".input-task");
       let inputValue = input.value;
       let newTask = new Task(inputValue, false, listTasks.length);
       listTasks.push(newTask);
-      setDataLocalStorage(listTasks);
+      LocalStorage.setDataLocalStorage(listTasks);
       input.value = "";
       renderTaskDom();
       refreshDragDropTarget();
@@ -96,9 +105,19 @@ describe("Test add", () => {
     ]);
   });
 
-  test('add task to DOM', () => {
-      expect(checkElementsInTaskDOM()[3]).toBeDefined();
-  })
+  test("add task to DOM", () => {
+    expect(checkElementsInTaskDOM()[3]).toBeDefined();
+  });
+
+  test("test get localStorage", () => {
+    expect(LocalStorage.getDataLocalStorage()).toEqual([
+      {
+        description: "Hello",
+        status: false,
+        index: 0,
+      },
+    ]);
+  });
 });
 
 describe("Test remove", () => {
@@ -112,9 +131,19 @@ describe("Test remove", () => {
     '<li data-id="2" class="item"><i class="fas fa-trash-alt remove"></i></li>' +
     "</ul>" +
     "</div>";
+  class LocalStorage {
+    static list = [];
 
-  const getDataLocalStorage = jest.fn();
-  getDataLocalStorage.mockReturnValue([
+    static setDataLocalStorage(item) {
+      this.list = item;
+    }
+
+    static getDataLocalStorage() {
+      return this.list;
+    }
+  }
+
+  let listTask = [
     {
       description: "chocolate",
       status: false,
@@ -130,9 +159,12 @@ describe("Test remove", () => {
       status: false,
       index: 2,
     },
-  ]);
+  ];
+
+  LocalStorage.setDataLocalStorage(listTask);
 
   const bundleRefreshHandlersAndUpdate = (list) => {
+    LocalStorage.setDataLocalStorage(list);
     let firstArray = [];
     let secondArray = [];
     for (let i = 0; i <= list.length; i++) {
@@ -156,7 +188,7 @@ describe("Test remove", () => {
   const removeTask = (element) => {
     const isRemoveIcon = element.classList.contains("remove");
     if (isRemoveIcon) {
-      const listTasks = getDataLocalStorage();
+      const listTasks = LocalStorage.getDataLocalStorage();
       const id = parseInt(element.parentElement.dataset.id, 10);
       listTasks.splice(id, 1);
       bundleRefreshHandlersAndUpdate(listTasks);
@@ -171,5 +203,20 @@ describe("Test remove", () => {
 
   test("Task is removed from DOM", () => {
     expect(checkNumberTask()).toBe(2);
+  });
+
+  test("test get localStorage", () => {
+    expect(LocalStorage.getDataLocalStorage()).toEqual([
+      {
+        description: "candy",
+        status: true,
+        index: 1,
+      },
+      {
+        description: "pie",
+        status: false,
+        index: 2,
+      },
+    ]);
   });
 });
