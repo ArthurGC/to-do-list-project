@@ -19,6 +19,11 @@ To get a local copy up and running follow these simple steps:
 1. Go to the [repository page](https://github.com/ArthurGC/to-do-list-project/tree/add-list-structure).
 2. Press the "Code" button and copy the link.
 3. Clone it using git command `git clone <link>`.
+4. Run `npm install` to install the packages and dependencies.
+
+To run the tests:
+
+- Run `npm test` on a Terminal.
 
 ## :blue_book: Learning Objectives
 

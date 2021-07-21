@@ -17,5 +17,9 @@ export const addTask = (event) => {
     renderTaskDom();
     refreshDragDropTarget();
     refreshDescriptions();
+    return listTasks;
   }
+  return false;
 };
+
+module.exports = addTask;
