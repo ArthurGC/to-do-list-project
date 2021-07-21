@@ -5,7 +5,7 @@
 const { expect, test } = require("@jest/globals");
 
 describe("Test add", () => {
-  // Arrange
+  // Arrange --------------------------------------------------------------------------->
   document.body.innerHTML =
     "<div>" +
     '<input type="text" name="task" id="task" class="input-task" value="Hello">' +
@@ -26,11 +26,39 @@ describe("Test add", () => {
   const getDataLocalStorage = jest.fn();
   getDataLocalStorage.mockReturnValue([]);
   const setDataLocalStorage = jest.fn();
-  const renderTaskDom = jest.fn();
+  const renderTaskDom = () => {
+    let listTasks = getDataLocalStorage();
+    let container = document.querySelector('.container-list');
+    let input = document.querySelector(".input-task");
+    let task = document.createElement('li');
+    task.classList.add('item');
+    task.dataset.id = listTasks.length;
+    let checkBox = document.createElement('input');
+    checkBox.setAttribute('type', 'checkbox');
+    let label = document.createElement('label');
+    label.textContent = input.value;
+    let icon = document.createElement('i');
+    icon.classList.add('fas', 'fa-trash-alt', 'remove');
+
+    task.appendChild(checkBox);
+    task.appendChild(label);
+    task.appendChild(icon);
+    container.appendChild(task);
+  };
+
+  const checkElementsInTaskDOM = () => {
+      let task = document.querySelector('.item');
+      let childrenTask = [...task.children];
+      let checkBox = childrenTask[0];
+      let label = childrenTask[1];
+      let icon = childrenTask[2];
+      return [checkBox, label, icon, task];
+  }
+
   const refreshDragDropTarget = jest.fn();
   const refreshDescriptions = jest.fn();
 
-  //Act
+  //Act --------------------------------------------------------------------------->
   const add = (event) => {
     if (event.keyCode === 13) {
       let listTasks = getDataLocalStorage();
@@ -47,39 +75,41 @@ describe("Test add", () => {
     }
   };
 
-  //   Assert
+  let addFunction = add(event);
+
+  //   Assert --------------------------------------------------------------------------->
   test("add task to the list", () => {
-    expect(add(event)).toHaveLength(1);
-    getDataLocalStorage.mockReturnValue([]);
+    expect(addFunction.length === 1).toBeTruthy();
   });
 
   test("task contains a right index", () => {
-    expect(add(event)[0].index).toBe(0);
-    getDataLocalStorage.mockReturnValue([]);
+    expect(addFunction[addFunction.length - 1].index).toBe(0);
   });
 
   test("add a object", () => {
-    expect(add(event)).toEqual([
+    expect(addFunction).toEqual([
       {
-        description: "",
+        description: "Hello",
         status: false,
         index: 0,
       },
     ]);
-    getDataLocalStorage.mockReturnValue([]);
   });
+
+  test('add task to DOM', () => {
+      expect(checkElementsInTaskDOM()[3]).toBeDefined();
+  })
 });
 
 describe("Test remove", () => {
-  // Arrange
-
+  // Arrange --------------------------------------------------------------------------->
   document.body.innerHTML =
     "<div>" +
     '<input type="text" name="task" id="task" class="input-task" value="Hello">' +
     '<ul class="container-list">' +
-    '<li data-id="0"><i class="fas fa-trash-alt remove"></i></li>' +
-    '<li data-id="1"><i class="fas fa-trash-alt remove"></i></li>' +
-    '<li data-id="2"><i class="fas fa-trash-alt remove"></i></li>' +
+    '<li data-id="0" class="item"><i class="fas fa-trash-alt remove"></i></li>' +
+    '<li data-id="1" class="item"><i class="fas fa-trash-alt remove"></i></li>' +
+    '<li data-id="2" class="item"><i class="fas fa-trash-alt remove"></i></li>' +
     "</ul>" +
     "</div>";
 
@@ -122,7 +152,7 @@ describe("Test remove", () => {
 
   let element = document.querySelector('li[data-id="0"] .remove');
 
-  //   Act
+  //  Act --------------------------------------------------------------------------->
   const removeTask = (element) => {
     const isRemoveIcon = element.classList.contains("remove");
     if (isRemoveIcon) {
@@ -134,7 +164,7 @@ describe("Test remove", () => {
     }
   };
 
-  //   Assert
+  //  Assert --------------------------------------------------------------------------->
   test("Task is removed from Array", () => {
     expect(removeTask(element)).toHaveLength(2);
   });
