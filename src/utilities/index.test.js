@@ -1,12 +1,12 @@
 /**
  * @jest-environment jsdom
  */
- const { expect, test, describe } = require('@jest/globals');
- const LocalStorage = require('./localStorage.js');
- const Task = require('./task.js');
- 
- describe('refresh the Information on index', () => {
-   document.body.innerHTML = '<div>'
+const { expect, test, describe } = require('@jest/globals');
+const LocalStorage = require('./localStorage.js');
+const Task = require('./task.js');
+
+describe('refresh the Information on index', () => {
+  document.body.innerHTML = '<div>'
    + '<ul class="container-list">'
    + '<li data-id="0" class="item">'
    + '<input class="checkbox" type="checkbox">'
@@ -21,9 +21,9 @@
    + '</ul>'
    + '</div>';
 
-   const localStorage = new LocalStorage();
+  const localStorage = new LocalStorage();
 
-   const refreshInformation = () => {
+  const refreshInformation = () => {
     const listTasks = [];
     const container = document.querySelector('.container-list');
     const items = [...container.children];
@@ -31,23 +31,22 @@
       const newTask = new Task(item.children[1].textContent, item.children[0].checked, index);
       listTasks.push(newTask);
     });
-  
+
     localStorage.setDataLocalStorage(listTasks);
-  }
+  };
   refreshInformation();
   test('by savind it in localStorage', () => {
     expect(localStorage.getDataLocalStorage()).toEqual([
       {
         description: 'Do the laundry',
         status: false,
-        index: 0
+        index: 0,
       },
       {
         description: 'Play games',
         status: false,
-        index: 1
-      }
+        index: 1,
+      },
     ]);
   });
-
 });

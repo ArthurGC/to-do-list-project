@@ -39,10 +39,9 @@ describe('edit the description', () => {
 
   test('by passing another description and checking the DOM', () => {
     expect(refreshDescriptions('Play games')).toBe('Play games');
-  })
+  });
 
   test('by passing another description and checking the localStorage', () => {
     expect(localStorage.getDataLocalStorage()[0].description).toBe('Play games');
-  })
+  });
 });
-  
