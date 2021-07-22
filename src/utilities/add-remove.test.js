@@ -15,17 +15,6 @@ describe('Test add', () => {
     keyCode: 13,
   };
 
-  //   class LocalStorage {
-  //     static list = [];
-
-  //     static setDataLocalStorage(item) {
-  //       this.list = item;
-  //     }
-
-  //     static getDataLocalStorage() {
-  //       return this.list;
-  //     }
-  //   }
   const localStorage = new LocalStorage();
 
   const renderTaskDom = () => {
